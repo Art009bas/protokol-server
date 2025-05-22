@@ -9,7 +9,8 @@ export const verifyToken = (req, res, next) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.userId = decoded.userId;
     next();
-  } catch {
+  } catch (err) {
+    console.error('Ошибка авторизации:', err);
     res.status(401).json({ message: 'Неверный токен' });
   }
 };
