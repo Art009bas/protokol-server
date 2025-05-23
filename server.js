@@ -6,6 +6,9 @@ import meetingRoutes from './routes/meeting.routes.js';
 import taskRoutes from './routes/task.routes.js';
 import { verifyToken } from './middleware/auth.middleware.js';
 import { PrismaClient } from '@prisma/client';
+import userRoutes from './routes/user.routes.js';
+app.use('/users', userRoutes);
+
 
 dotenv.config();
 const app = express();
