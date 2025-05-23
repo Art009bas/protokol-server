@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
 import { PrismaClient } from '@prisma/client';
+import crypto from 'crypto';
 
 const prisma = new PrismaClient();
 
@@ -21,7 +21,6 @@ export const register = async (req, res) => {
     await prisma.user.create({ data: { email, password: hashed } });
 
     return res.status(201).json({ message: "Пользователь создан" });
-
   } catch (err) {
     console.error("Ошибка регистрации:", err);
     return res.status(500).json({ message: "Ошибка сервера при регистрации" });
@@ -77,6 +76,7 @@ export const telegramAuth = async (req, res) => {
   }
 
   const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+  const redirectUrl = `https://protokol-client.onrender.com?token=${token}&username=${authData.username}&photo_url=${encodeURIComponent(authData.photo_url || '')}`;
 
-  res.redirect(`https://protokol-client.onrender.com?token=${token}`);
+  res.redirect(redirectUrl);
 };
