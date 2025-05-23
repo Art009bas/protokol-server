@@ -36,3 +36,9 @@ model Task {
   meetingId   Int
   meeting     Meeting  @relation(fields: [meetingId], references: [id])
 }
+
+model PublicTask {
+  id        Int      @id @default(autoincrement())
+  text      String
+  createdAt DateTime @default(now())
+}
